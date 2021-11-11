@@ -4,7 +4,8 @@ import pygame
 
 def play(filename, windowname):
     pygame.display.set_caption(windowname)
-    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen.fill((0, 0, 0))
     video = VideoFileClip(filename)
     video.preview(fullscreen=True)
     mainLoop = True
