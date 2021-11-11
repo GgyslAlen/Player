@@ -1,31 +1,24 @@
-import cv2
+from moviepy.editor import *
+import pygame
 
-def play(filename, windowname, interframe):
-    cap = cv2.VideoCapture(filename)
-    if not cap.isOpened():
-        print("Error: Could not open video.")
-        exit()
 
-    cv2.namedWindow(windowname, cv2.WND_PROP_FULLSCREEN)
-    cv2.setWindowProperty(windowname, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+def play(filename, windowname):
+    pygame.display.set_caption(windowname)
+    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    video = VideoFileClip(filename)
+    video.preview(fullscreen=True)
+    mainLoop = True
+    while mainLoop:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                mainLoop = False
+        pygame.display.update()
 
-    while (True):
-        ret, frame = cap.read()
-        if not ret:
-            print("Reached end of video, exiting.")
-            break
-
-        cv2.imshow(windowname, frame)
-        if cv2.waitKey(interframe) & 0x7F == ord('q'):
-            print("Exit requested.")
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+    pygame.quit()
 
 
 if __name__ == '__main__':
-    file_name = r"/home/pi/test_64_64.mp4"
+    file_name = r"E:\\test_64_64.mp4"
     window_name = "window"
     interframe_wait_ms = 30
     play(file_name, window_name, interframe_wait_ms)
