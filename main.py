@@ -21,4 +21,4 @@ if __name__ == '__main__':
     file_name = r"E:\\test_64_64.mp4"
     window_name = "window"
     interframe_wait_ms = 30
-    play(file_name, window_name, interframe_wait_ms)
+    play(file_name, window_name)
